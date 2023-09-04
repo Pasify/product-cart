@@ -12,6 +12,7 @@ const itemsDisplay = document.querySelector(".item-display");
 
 let itemsArray = [];
 const storage = window.localStorage;
+
 // clear all fields
 function clearAllFields() {
   _productName.value = "";
@@ -21,9 +22,10 @@ function clearAllFields() {
 
 // getting items from the local storage
 window.addEventListener("load", function () {
-  console.log(`ready`);
   let savedItem = JSON.parse(storage.getItem("itemsArray"));
+  if (!savedItem) return;
   itemsArray = savedItem;
+  console.log(itemsArray);
   updateItemsArray();
 });
 
@@ -38,6 +40,7 @@ function deleteFunction(index) {
 // update Items Array
 function updateItemsArray() {
   itemsDisplay.innerHTML = "";
+  console.log(itemsArray);
   itemsArray.forEach((item, ind) => {
     itemsDisplay.insertAdjacentHTML(
       "afterbegin",
@@ -79,6 +82,7 @@ _saveBtn.addEventListener("click", function () {
     alert(`Year must be a between 3 and 4 characters.`);
     return;
   }
+  console.log(itemsArray);
   itemsArray.push(item);
   storage.setItem("itemsArray", JSON.stringify(itemsArray));
 
